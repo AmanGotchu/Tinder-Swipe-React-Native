@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactNative, { StyleSheet, Text, View } from 'react-native';
+import ReactNative, { StyleSheet, Text, View, Animated } from 'react-native';
 import Deck from './src/Deck';
 import { Card, Button } from 'react-native-elements';
 const DATA = [
@@ -13,7 +13,8 @@ const DATA = [
   { id: 8, text: 'Card #8', uri: 'http://imgs.abduzeedo.com/files/paul0v2/unsplash/unsplash-01.jpg' },
 ];
 
-export default class App extends React.Component {
+
+class App extends React.Component {
 
   renderCard(item) {
     return(
@@ -21,7 +22,6 @@ export default class App extends React.Component {
         key={item.id}
         title={item.text}
         image={{ uri: item.uri }}
-
       >
         <Text style={{ marginBottom: 10, alignSelf: 'center' }}>
           I can customize the card further.
@@ -37,12 +37,24 @@ export default class App extends React.Component {
     );
   }
 
-  
+  renderNoMoreCards(position){
+    return(
+      <Card title="All Done!" containerStyle={{marginTop: 100}}>
+        <Text style={{ marginBottom: 10 }}>
+          There is no more content here!
+        </Text>
+        <Button
+          backgroundColor="#03A9F4"
+          title="Get more!"
+        />
+      </Card>
+    );
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <Deck data={DATA} renderCard={this.renderCard} />
+        <Deck data={DATA} renderCard={this.renderCard} renderNoMoreCards={this.renderNoMoreCards}/>
       </View>
     );
   }
@@ -52,6 +64,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-
   },
 });
+
+export default App;
