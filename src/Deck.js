@@ -77,8 +77,14 @@ class Deck extends Component{
   }
 
   renderCards(){
-    return this.props.data.map((item, index) => {
-      if(index === 0){
+
+    return this.props.data.map((item, i) => {
+
+      if(i < this.state.index){
+        return null;
+      }
+
+      if(i === this.state.index){
         return(
           <Animated.View
             style={this.getCardStyle()}
@@ -90,11 +96,13 @@ class Deck extends Component{
         );
       }
 
+
       return this.props.renderCard(item);
     });
   }
 
   render(){
+    {console.log('The render method is called!');}
     return(
       <View>
         {this.renderCards()}
