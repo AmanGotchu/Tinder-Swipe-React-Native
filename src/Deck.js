@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Animated, PanResponder, Dimensions } from 'react-native';
+import { View, Text, Animated, PanResponder, Dimensions, LayoutAnimation, UIManager } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -36,6 +36,11 @@ class Deck extends Component{
     });
 
     this.state = { panResponder, position, index: 0 };
+  }
+
+  componentWillUpdate(){
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    LayoutAnimation.spring();
   }
 
   onSwipeComplete(direction) {
@@ -115,7 +120,7 @@ class Deck extends Component{
   render(){
 
     return(
-      <View>
+      <View style={{top: 50}}>
         {this.renderCards()}
       </View>
 
