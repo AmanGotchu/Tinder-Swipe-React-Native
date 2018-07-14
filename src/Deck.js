@@ -92,7 +92,7 @@ class Deck extends Component{
       if(i === this.state.index){
         return(
           <Animated.View
-            style={this.getCardStyle()}
+            style={[this.getCardStyle(), styles.cardStyle]}
             {...this.state.panResponder.panHandlers}
             key={item.id}
           >
@@ -102,18 +102,29 @@ class Deck extends Component{
       }
 
 
-      return this.props.renderCard(item);
-    });
+      return (
+        <View key={item.id} style={styles.cardStyle}>
+          {this.props.renderCard(item)}
+        </View>
+      );
+    }).reverse();
   }
 
   render(){
-    {console.log('The render method is called!');}
+
     return(
       <View>
         {this.renderCards()}
       </View>
 
     );
+  }
+}
+
+const styles = {
+  cardStyle: {
+    position: 'absolute',
+    width: SCREEN_WIDTH
   }
 }
 
